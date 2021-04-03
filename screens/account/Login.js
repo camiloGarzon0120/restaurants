@@ -1,12 +1,64 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image } from 'react-native'
+import { Divider } from 'react-native-elements'
+import { useNavigation } from '@react-navigation/native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+import LoginForm from '../../components/account/LoginForm'
 
 export default function Login() {
     return (
-        <View>
-            <Text>Login</Text>
-        </View>
+        <KeyboardAwareScrollView>
+            <Image
+                source={require("../../assets/restaurant-logo.png")}
+                resizeMode="contain"
+                style={styles.image}
+            />
+            <View style={styles.container}>
+                <LoginForm/>
+                <CreateAccount/>
+                <Divider style={styles.divider}/>
+            </View>
+        </KeyboardAwareScrollView>
     )
 }
 
-const styles = StyleSheet.create({})
+function CreateAccount(props) {
+    const navigation = useNavigation()
+
+    return (
+        <Text 
+            style={styles.register}
+            onPress={() => navigation.navigate("register")}
+        >
+            ¿Aún no tienes una cuenta?{" "}
+            <Text style={styles.btnRegister}>
+                Regístrate
+            </Text>
+        </Text>
+    )
+}
+
+const styles = StyleSheet.create({
+    image: {
+        height: 150,
+        width: "100%",
+        marginBottom: 20
+    },
+    container: {
+        marginHorizontal: 40
+    },
+    divider: {
+        backgroundColor: "#06a4c1",
+        margin: 20,
+    },
+    register: {
+        marginTop: 15,
+        marginHorizontal: 10,
+        alignSelf: "center"
+    },
+    btnRegister: {
+        color: "#06a4c1",
+        fontWeight: "bold"
+    }
+})

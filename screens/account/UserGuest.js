@@ -24,7 +24,7 @@ export default function UserGuest() {
             <Button
                 buttonStyle={styles.button}
                 title="Ver tu Perfil"
-                onPress={() => navigation.navigate("Login")}
+                onPress={() => navigation.navigate("login")}
             />
         </ScrollView>
     )

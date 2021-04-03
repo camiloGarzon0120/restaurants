@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { StyleSheet} from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
 
 import UserLogged from './UserLogged'
 import UserGuest from './UserGuest'
-import { isUserLogged } from '../../utils/actions'
+import { getCurrentUser, isUserLogged } from '../../utils/actions'
 import Loading from '../../components/Loading'
 
 export default function Account() {
     const [login, setLogin] = useState(null)
 
-    useEffect(() => {
-        setLogin(isUserLogged())
-    }, [])
+    useFocusEffect (
+        useCallback(() => {
+            const user = getCurrentUser()
+            user ? setLogin(true) : setLogin(false)
+        }, [])
+    )
 
     if (login === null) {
         return <Loading isVisible={true} text="Cargando..." />
